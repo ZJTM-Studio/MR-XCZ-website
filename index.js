@@ -1,5 +1,8 @@
 (function() {
-    const warningBox = document.getElementById('mobile-warning');
+    
+    if (window.location.pathname.includes('ban-mobile.html')) {
+        return; 
+    }
 
     function isMobile() {
         const ua = navigator.userAgent.toLowerCase();
@@ -8,26 +11,14 @@
         const isSmallScreen = window.innerWidth <= 768;
         return isMobileUA || isSmallScreen;
     }
-
     if (isMobile()) {
-        warningBox.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                warningBox.style.display = 'none';
-                document.body.style.overflow = '';
-            } else {
-                warningBox.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        });
+        window.location.href = 'ban-mobile.html';
     }
 })();
 
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
-    
+    if (!navbar) return; // 防止在非主页报错
     if (window.scrollY > 50) {
         navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.22)';
     } else {
